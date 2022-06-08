@@ -21,14 +21,14 @@
     </style>
     <py-env>
         - paths:
-            - /lexical_analyzer.py
+            - /lexical_analyzer_parser.py
     </py-env>
-    <title>TBA | Web Demo</title>
+    <title>TBA | Web Demo Kelompok 4</title>
 </head>
 
 <body>
     <py-script>
-        from lexical_analyzer import *
+        from lexical_analyzer_parser import *
     </py-script>
     <!-- START NAVBAR -->
     <nav style="background-color: #29292C; height: 80px;" class="navbar navbar-expand-lg navbar-dark bg-dark"
@@ -45,7 +45,7 @@
                             aria-current="page" href="#demo">Demo Program</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"
+                        <a class="nav-link" target="_blank"
                             style="font-weight: 500; font-size: 16px; color: #EAEAEB; margin-left: 25px; margin-right: 25px;"
                             href="https://github.com/alifbabrizq/TUBES-TBA">Link</a>
                     </li>
@@ -79,11 +79,20 @@
             <button id="submit-button" type="submit" class="btn" pys-onClick="checkSubmit" onClick="buttonRefresh()"
                 style="justify-content: center; align-items: center; padding: 3px 28px; background-color: #FA4A55; border-radius: 7px; font-weight: 600; font-size: 18px; line-height: 40px; color: #EAEAEB">Check</button>
                 <!-- </form> -->
-            <div id="output" class="d-flex align-items-center justify-content-center" style="font-size: 18px; font-weight: 500;">
-                <div id="str" class="h-auto m-4 p-5 d-none text-center" style="border-radius: 7px; border: none; width: 46%; background-color: #29292C; color: #EAEAEB">
+                <div class="d-flex justify-content-center">
+                    <div id="output" class="h-auto my-4 mx-2 p-5 text-center d-none" style="font-size: 18px; font-weight: 500; border-radius: 7px; border: none; width: 40%; background-color: #29292C; color: #EAEAEB">
+                        <h1 class="pb-3" style="font-size: 24px!important; font-weight: 700!important;">Lexical Analyzer</h1>
+                        <div id="lexical" class="">
         
+                        </div>
+                    </div>
+                    <div id="output2" class="h-auto my-4 mx-2 p-5 text-center d-none" style="font-size: 18px; font-weight: 500; border-radius: 7px; border: none; width: 40%; background-color: #29292C; color: #EAEAEB">
+                        <h1 class="pb-3" style="font-size: 24px!important; font-weight: 700!important;">Parser</h1>
+                        <div id="parser" class="">
+                
+                        </div>
+                    </div>
                 </div>
-            </div>
             <button id="refresh" type="submit" class="btn d-none" onClick="history.go(0);"
                 style="justify-content: center; align-items: center; padding: 3px 28px; background-color: #FA4A55; border-radius: 7px; font-weight: 600; font-size: 18px; line-height: 40px; color: #EAEAEB">Refresh</button>
         </div>
@@ -91,14 +100,14 @@
     <!-- END DEMO PROGRAM -->
 
     <!-- START OUR TEAM -->
-    <section id="our-team" style="background-color: #04050A; padding-top: 58px; padding-bottom: 200px;">
+    <section id="our-team" style="background-color: #04050A; padding-top: 58px; padding-bottom: 100px;">
         <div class="container text-center" style="color: #EAEAEB;">
-            <h1 style="font-size: 36px; font-weight: 700;">Meet Our Team</h1>
+            <h1 class="pb-2" style="font-size: 36px; font-weight: 700;">Meet Our Team</h1>
             <p>Kelompok 4</p>
-            <div class="row row-cols-1 row-cols-md-3 g-4 pt-4">
+            <div class="row row-cols-1 row-cols-md-3 g-4 p-5">
                 <div class="col">
                     <div class="card h-100">
-                        <div class="card-body">
+                        <div class="card-body py-4">
                             <h5 class="card-title">Alif Babrizq Kuncara</h5>
                             <p class="card-text">1301204228</p>
                         </div>
@@ -106,7 +115,7 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <div class="card-body">
+                        <div class="card-body py-4">
                             <h5 class="card-title">Muhammad Rafi Yanaputeranto</h5>
                             <p class="card-text">1301204352</p>
                         </div>
@@ -114,7 +123,7 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <div class="card-body">
+                        <div class="card-body py-4">
                             <h5 class="card-title">Noval Dzaki</h5>
                             <p class="card-text">1301204505</p>
                         </div>
@@ -125,16 +134,47 @@
     </section>
     <!-- END OUR TEAM -->
 
-    <py-script output="output">
+    <button id="help" type="button" class="btn float-right m-3 rounded-circle text-center opacity-50" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                style="justify-content: center; align-items: center; width: 60px; height: 60px; background-color: #FA4A55; font-weight: 900; font-size: 24px; line-height: 40px; color: #EAEAEB; position: fixed; position: fixed;
+                right: 0; bottom: 0;">?</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Grammar</h5>
+            </div>
+            <div class="modal-body">
+               <p> S → NN VB NN</p>
+               <p class="py-2"> NN → anom | embu | sate | kaju | sape | ajam | koncel </p>
+               <p> VB → tono | keba | tompa </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <py-script output="output" output="output2">
         def checkSubmit(*args, **kwargs):
             kalimat = Element('inputkalimat').element.value
-            result = lexicalAnalyzer(kalimat)
+            resultLexical = lexicalAnalyzer(kalimat)
+            resultParser = parser(kalimat)
+            pyscript.write('lexical', "Lexical Analyzer")
             if kalimat == "" :
-                pyscript.write('str', "Input tidak boleh kosong!")
-            elif result :
-                pyscript.write('str', f'Semua token : {kalimat} is valid')
-            else :
-                pyscript.write('str', "ERROR!")
+                pyscript.write('lexical', "Input tidak boleh kosong!")
+                pyscript.write('parser', "Input tidak boleh kosong!")
+            else:
+                if resultLexical :
+                    pyscript.write('lexical', f'Semua token : {kalimat} is valid')
+                else :
+                    pyscript.write('lexical', "ERROR!")
+                if resultParser :
+                    pyscript.write('parser', f'VALID! {kalimat} diterima sesuai grammar')
+                else :
+                    pyscript.write('parser', f'ERROR! {kalimat} tidak diterima tidak sesuai grammar')
     </py-script>
 
     <script>
@@ -143,8 +183,12 @@
             refreshButton.classList.remove('d-none')
             var disableBtn = document.getElementById('submit-button')
             disableBtn.classList.add('disabled')
-            var strResult = document.getElementById('str')
-            strResult.classList.remove('d-none')
+            var lexicalResult = document.getElementById('output')
+            lexicalResult.classList.remove('d-none')
+            var parserResult = document.getElementById('output2')
+            parserResult.classList.remove('d-none')
+            var help = document.getElementById('help')
+            help.classList.remove('opacity-50')
         }
     </script>
 

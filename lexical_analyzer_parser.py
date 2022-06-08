@@ -168,3 +168,100 @@ def lexicalAnalyzer(kalimat):
         # print(f"semua token yang di input: {input_string} valid")
         return True
         #print("semua token yang di input: {} valid".format(input_string))
+
+
+def parser(kalimat):
+    input_string = kalimat.lower().split()
+    input_string.append('EOS')
+
+    non_terminals = ['S', 'NN', 'VB']
+    terminals = ["anom", "embu", "sate", "kaju", "sape",
+                 "ajam", "koncel", "tono", "keba", "tompa"]
+
+    # Parse Table Definition
+    parse_table = {}
+
+    parse_table[('S', 'anom')] = ['NN', 'VB', 'NN']
+    parse_table[('S', 'embu')] = ['NN', 'VB', 'NN']
+    parse_table[('S', 'sate')] = ['NN', 'VB', 'NN']
+    parse_table[('S', 'kaju')] = ['NN', 'VB', 'NN']
+    parse_table[('S', 'sape')] = ['NN', 'VB', 'NN']
+    parse_table[('S', 'ajam')] = ['NN', 'VB', 'NN']
+    parse_table[('S', 'koncel')] = ['NN', 'VB', 'NN']
+    parse_table[('S', 'tono')] = ['error']
+    parse_table[('S', 'keba')] = ['error']
+    parse_table[('S', 'tompa')] = ['error']
+    parse_table[("S", "EOS")] = ["error"]
+
+    parse_table[('NN', 'anom')] = ['anom']
+    parse_table[('NN', 'embu')] = ['embu']
+    parse_table[('NN', 'sate')] = ['sate']
+    parse_table[('NN', 'kaju')] = ['kaju']
+    parse_table[('NN', 'sape')] = ['sape']
+    parse_table[('NN', 'ajam')] = ['ajam']
+    parse_table[('NN', 'koncel')] = ['koncel']
+    parse_table[('NN', 'tono')] = ['error']
+    parse_table[('NN', 'keba')] = ['error']
+    parse_table[('NN', 'tompa')] = ['error']
+    parse_table[("NN", "EOS")] = ["error"]
+
+    parse_table[('VB', 'anom')] = ['error']
+    parse_table[('VB', 'embu')] = ['error']
+    parse_table[('VB', 'sate')] = ['error']
+    parse_table[('VB', 'kaju')] = ['error']
+    parse_table[('VB', 'sape')] = ['error']
+    parse_table[('VB', 'ajam')] = ['error']
+    parse_table[('VB', 'koncel')] = ['error']
+    parse_table[('VB', 'tono')] = ['tono']
+    parse_table[('VB', 'keba')] = ['keba']
+    parse_table[('VB', 'tompa')] = ['tompa']
+    parse_table[("VB", "EOS")] = ["error"]
+
+    # stack initialization
+    stack = []
+    stack.append('#')
+    stack.append('S')
+
+    # input reading initialization
+    idx_string = 0
+    symbol = input_string[idx_string]
+
+    # parsing process
+    while (len(stack) > 0):
+        top = stack[len(stack)-1]
+        # print('top - ', top)
+        # print('symbol - ', symbol)
+        if top in terminals:
+            # print('top adalah simbol terminal')
+            if top == symbol:
+                stack.pop()
+                idx_string = idx_string + 1
+                symbol = input_string[idx_string]
+                if symbol == "EOS":
+                    # print('isi stack:', stack)
+                    stack.pop()
+            else:
+                return False
+        elif top in non_terminals:
+            # print('top adalah simbol non-terminal')
+            if parse_table[(top, symbol)][0] != "error":
+                stack.pop()
+                symbols_to_be_pushed = parse_table[(top, symbol)]
+                for i in range(len(symbols_to_be_pushed) - 1, -1, -1):
+                    stack.append(symbols_to_be_pushed[i])
+            else:
+                return False
+        else:
+            return False
+        # print('isi stack', stack)
+        # print()
+
+    # kesimpulan
+    # print()
+    if symbol == "EOS" and len(stack) == 0:
+        # print('Input string', input_string, '', 'diterima, sesuai Grammar')
+        return True
+    else:
+        return False
+        # print('Error, input string', input_string,
+        #       'tidak diterima, tidak sesuai grammar')

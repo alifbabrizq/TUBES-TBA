@@ -4522,7 +4522,7 @@ textarea.form-control-lg {
 
 .card-body {
   flex: 1 1 auto;
-  padding: 1rem 1rem;
+  /* padding: 1rem 2rem; */
 }
 
 .card-title {
@@ -5552,12 +5552,15 @@ textarea.form-control-lg {
 .modal-title {
   margin-bottom: 0;
   line-height: 1.5;
+  font-weight: 700;
+  font-size: 24px;
 }
 
 .modal-body {
   position: relative;
   flex: 1 1 auto;
-  padding: 1rem;
+  padding: 2rem;
+  font-weight: 500;
 }
 
 .modal-footer {
