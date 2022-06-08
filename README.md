@@ -7,10 +7,9 @@
 <p align="center"><a href="https://lexical-analyzer-parser.netlify.app/">View Demo</a></p>
 
 ## Grammar
-< S > ::= < noun >  < verb >  < noun > <br>
-< noun > ::= anom | embu | sate | kaju | sape | ajam | koncel | <br>
-< verb > ::= tono | keba | tompa |
-<br>
+S → NN VB NN <br>
+NN → anom | embu | sate | kaju | sape | ajam | koncel <br>
+VB → tono | keba | tompa <br>
 <br>
 
 ## Anggota Kelompok
