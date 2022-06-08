@@ -167,6 +167,8 @@ def lexicalAnalyzer(kalimat):
     if state == "ACCEPT":
         # print(f"semua token yang di input: {input_string} valid")
         return True
+    else:
+        return False
         #print("semua token yang di input: {} valid".format(input_string))
 
 
